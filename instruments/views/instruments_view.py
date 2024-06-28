@@ -15,7 +15,7 @@ class InstrumentList(generics.ListCreateAPIView):
         brand = self.request.query_params.get('brand', None)
         material = self.request.query_params.get('material', None)
         use = self.request.query_params.get('use', None)
-
+        print(type)
         if name:
             queryset = queryset.filter(name__icontains=name)
         if min_price:
