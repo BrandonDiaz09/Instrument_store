@@ -17,19 +17,19 @@ class InstrumentList(generics.ListCreateAPIView):
         use = self.request.query_params.get('use', None)
 
         if name:
-            queryset = queryset.filter(nombre__icontains=name)
+            queryset = queryset.filter(name__icontains=name)
         if min_price:
-            queryset = queryset.filter(precio__gte=min_price)
+            queryset = queryset.filter(price__gte=min_price)
         if max_price:
-            queryset = queryset.filter(precio__lte=max_price)
+            queryset = queryset.filter(price__lte=max_price)
         if type:
-            queryset = queryset.filter(tipo_id=type)
+            queryset = queryset.filter(type_id=type)
         if brand:
-            queryset = queryset.filter(marca_id=brand)
+            queryset = queryset.filter(brand_id=brand)
         if material:
             queryset = queryset.filter(material_id=material)
         if use:
-            queryset = queryset.filter(uso_id=use)
+            queryset = queryset.filter(use_id=use)
         
         return queryset
 
