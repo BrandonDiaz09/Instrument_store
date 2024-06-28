@@ -34,7 +34,8 @@ class InstrumentList(generics.ListCreateAPIView):
         if use:
             use_ids = [int(u) for u in use.split(",")]
             queryset = queryset.filter(use_id__in=use_ids)
-        
+
+        queryset = queryset.order_by('price', 'creation_date')
         return queryset
 
 
