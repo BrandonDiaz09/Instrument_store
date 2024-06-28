@@ -15,7 +15,7 @@ class InstrumentList(generics.ListCreateAPIView):
         brand = self.request.query_params.get('brand', None)
         material = self.request.query_params.get('material', None)
         use = self.request.query_params.get('use', None)
-        print(type)
+
         if name:
             queryset = queryset.filter(name__icontains=name)
         if min_price:
@@ -23,15 +23,20 @@ class InstrumentList(generics.ListCreateAPIView):
         if max_price:
             queryset = queryset.filter(price__lte=max_price)
         if type:
-            queryset = queryset.filter(type_id=type)
+            type_ids = [int(t) for t in type.split(",")]
+            queryset = queryset.filter(type_id__in=type_ids)
         if brand:
-            queryset = queryset.filter(brand_id=brand)
+            brand_ids = [int(b) for b in brand.split(",")]
+            queryset = queryset.filter(brand_id__in=brand_ids)
         if material:
-            queryset = queryset.filter(material_id=material)
+            material_ids = [int(m) for m in material.split(",")]
+            queryset = queryset.filter(material_id__in=material_ids)
         if use:
-            queryset = queryset.filter(use_id=use)
+            use_ids = [int(u) for u in use.split(",")]
+            queryset = queryset.filter(use_id__in=use_ids)
         
         return queryset
+
 
 class InstrumentDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Instrument.objects.all()
